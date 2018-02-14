@@ -1,0 +1,8 @@
+# ignore everything not-whitelisted
+**/*
+# whitelist directories in general
+!*/
+
+# moar whitelistings...
+!/.gitignore
+!/i3/**/*
