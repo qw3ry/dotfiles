@@ -6,3 +6,5 @@
 # moar whitelistings...
 !/.gitignore
 !/i3/**/*
+!/dunst/**/*
+
