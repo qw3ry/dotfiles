@@ -3,8 +3,14 @@
 # whitelist directories in general
 !*/
 
+# blacklist some directories that cause strange issues
+/dev/
+/tmp/
+/.cache/
+
 # moar whitelistings...
 !/.gitignore
-!/i3/**/*
-!/dunst/**/*
-
+!/.config/i3/**/*
+!/.config/dunst/**/*
+!/.config/bash-git-prompt
+!/.config/bash-git-prompt/**/*

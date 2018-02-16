@@ -71,7 +71,7 @@ bindsym $mod+q focus parent
 # focus the child container
 bindsym $mod+a focus child
 
-set $workspace0 workspace 0
+set $workspace0 workspace 10
 set $workspace1 workspace 1
 set $workspace2 workspace 2
 set $workspace3 workspace 3
