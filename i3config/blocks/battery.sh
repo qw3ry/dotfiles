@@ -11,23 +11,40 @@ function battery_status {
 	acpi=$(acpi -b | grep "Battery $num:")
 	percent=$(echo $acpi | cut -d' ' -f4 | cut -d'%' -f1)
 	status=$(echo $acpi | cut -d' ' -f3 | cut -d',' -f1)
-	icon=""
-	color="#0F0"
 	bgr="#000"
-	if [[ $status == 'Discharging' ]]; then
-		color="#FFF"
-		if [[ $percent < 20 ]]; then
-			icon=""
-			bgr="#900"
-		elif [[ $percent < 40 ]]; then
-			icon =""
-		else
-			icon =""
-		fi;
-	elif [[ $status == 'Full' ]]; then
-		color="#af0"
-		icon=""
-	fi;
+	icon="dummy"
+	case $status in
+		Discharging)
+			color="#FFF"
+               		if [[ $percent < 20 ]]; then
+                        	icon=""
+                        	bgr="#900"
+                	elif [[ $percent < 40 ]]; then
+                	        icon=""
+				color="#fa0"
+                	elif [[ $percent < 60 ]]; then
+				icon=""
+				color="#ff7"
+                	elif [[ $percent < 80 ]]; then
+				icon=""
+			else
+        	                icon=""
+	                fi;
+			;;
+		Charging)
+			icon=""
+                	color="#0F0"
+			;;
+		Full)
+	                color="#af0"
+                	icon=""
+			;;
+		*)
+			icon="ERR"
+			color="#000"
+			bgr="#f11"
+			;;
+	esac
 	append_text $icon $percent $color $bgr
 }
 
