@@ -161,7 +161,7 @@ mode "$mode_exit" {
 	bindsym h                 exec --no-startup-id systemctl poweroff -i
 	bindsym XF86PowerOff      mode "default"; exec --no-startup-id "$scriptDir/lock.sh; systemctl suspend"
 	bindsym s mode "default"; exec --no-startup-id "$scriptDir/lock.sh; systemctl suspend"
-	bindsym g                 i3-msg exit
+	bindsym g                 exec i3-msg exit
 	bindsym Escape mode "default"
 	bindsym Return mode "default"
 }
@@ -169,7 +169,7 @@ mode "$mode_exit" {
 bindsym $mod+Shift+a exec --no-startup-id $scriptDir/lock.sh
 
 ### AUTOSTARTS
-exec --no-startup-id "pulseaudio --start"
+#exec --no-startup-id "pulseaudio --start"
 exec --no-startup-id "sleep 1;nm-applet" # network manager
 exec --no-startup-id "sleep 5;owncloud"
 exec --no-startup-id "sleep 3;pasystray" # volume applet

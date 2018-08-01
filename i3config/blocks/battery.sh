@@ -13,34 +13,34 @@ function battery_status {
 	status=$(echo $acpi | cut -d' ' -f3 | cut -d',' -f1)
 	bgr="#000"
 	icon="dummy"
+	color="#fff"
 	case $status in
 		Discharging)
 			color="#FFF"
-               		if [[ $percent < 20 ]]; then
+        	        icon=""
+               		if [[ $percent -lt 20 ]]; then
                         	icon=""
                         	bgr="#900"
-                	elif [[ $percent < 40 ]]; then
+                	elif [[ $percent -lt 40 ]]; then
                 	        icon=""
 				color="#fa0"
-                	elif [[ $percent < 60 ]]; then
+                	elif [[ $percent -lt 60 ]]; then
 				icon=""
 				color="#ff7"
-                	elif [[ $percent < 80 ]]; then
+                	elif [[ $percent -lt 80 ]]; then
 				icon=""
-			else
-        	                icon=""
 	                fi;
 			;;
 		Charging)
 			icon=""
                 	color="#0F0"
 			;;
-		Full)
+		Full|Unknown)
 	                color="#af0"
                 	icon=""
 			;;
 		*)
-			icon="ERR"
+			icon="Status=$status"
 			color="#000"
 			bgr="#f11"
 			;;
