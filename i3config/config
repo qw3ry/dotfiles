@@ -24,7 +24,7 @@ font pango:DejaVu Sans 10
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec terminator
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec rofi -show drun -show-icons -i -theme $confDir/rofi.theme
 
@@ -71,7 +71,6 @@ bindsym $mod+q focus parent
 # focus the child container
 bindsym $mod+a focus child
 
-set $workspace0 workspace 10
 set $workspace1 workspace 1
 set $workspace2 workspace 2
 set $workspace3 workspace 3
@@ -81,9 +80,9 @@ set $workspace6 workspace 6
 set $workspace7 workspace 7
 set $workspace8 workspace 8
 set $workspace9 workspace 9
+set $workspace0 workspace 10
 
 # switch to workspace
-bindsym $mod+0 $workspace0
 bindsym $mod+1 $workspace1
 bindsym $mod+2 $workspace2
 bindsym $mod+3 $workspace3
@@ -93,9 +92,9 @@ bindsym $mod+6 $workspace6
 bindsym $mod+7 $workspace7
 bindsym $mod+8 $workspace8
 bindsym $mod+9 $workspace9
+bindsym $mod+0 $workspace0
 
 # move focused container to workspace
-bindsym $mod+Shift+0 move container to $workspace0
 bindsym $mod+Shift+1 move container to $workspace1
 bindsym $mod+Shift+2 move container to $workspace2
 bindsym $mod+Shift+3 move container to $workspace3
@@ -105,6 +104,7 @@ bindsym $mod+Shift+6 move container to $workspace6
 bindsym $mod+Shift+7 move container to $workspace7
 bindsym $mod+Shift+8 move container to $workspace8
 bindsym $mod+Shift+9 move container to $workspace9
+bindsym $mod+Shift+0 move container to $workspace0
 
 bindsym $mod+Ctrl+Right move workspace to output right
 bindsym $mod+Ctrl+Left move workspace to output left
@@ -138,13 +138,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-  status_command i3blocks -c $confDir/i3blocks.conf
-  font pango:FontAwesome 10
-}
-
 # Media Keys
 bindsym XF86MonBrightnessUp   exec $scriptDir/brightness.sh up
 bindsym XF86MonBrightnessDown exec $scriptDir/brightness.sh down
@@ -171,16 +164,18 @@ bindsym $mod+Shift+a exec --no-startup-id $scriptDir/lock.sh
 ### AUTOSTARTS
 #exec --no-startup-id "pulseaudio --start"
 exec --no-startup-id "sleep 1;nm-applet" # network manager
-exec --no-startup-id "sleep 5;owncloud"
+exec --no-startup-id "sleep 5;nextcloud"
 exec --no-startup-id "sleep 3;pasystray" # volume applet
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 # for GUI sudo dialog window
 exec --no-startup-id "sleep 15;/usr/bin/pamac-tray" # pacman updater
 exec --no-startup-id compton -f --config $confDir/compton.conf
 exec --no-startup-id dunst
-exec --no-startup-id "sleep 10;franz-bin"
+exec --no-startup-id "sleep 10;rambox"
 exec --no-startup-id systemd-inhibit --what=handle-power-key sleep infinity # let systemd ignore the power button
+exec --no-startup-id udiskie --tray --use-udisks2
 
-exec_always --no-startup-id feh --bg-scale $confDir/wallpaper.jpg
+#exec_always --no-startup-id feh --bg-scale $confDir/wallpaper.jpg
+exec_always --no-startup-id $confDir/polybar.sh
 
 # change the window title to include the class
 for_window [class=".*"] title_format "[%class] %title"
@@ -196,3 +191,7 @@ for_window [class="Pnmixer"] floating enable
 for_window [window_role="plugin_ui"] floating enable
 for_window [title="Menu Update"] floating enable
 for_window [title="___"] floating enable
+
+#input 7805:12700:ROCCAT_ROCCAT_Isku {
+#	xkb_layout de,us
+#}
